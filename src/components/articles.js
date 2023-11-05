@@ -1,9 +1,19 @@
 import React from "react";
 import logo from "../logo.svg";
 import img from "../code.png";
+import Nav from "../components/nav.js";
+import Article from "./article.js";
 
 import "../App.css";
 import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+
+
 import DOMPurify from "dompurify";
 
 function ArticleItem(title){
@@ -14,10 +24,21 @@ function ArticleItem(title){
   );
 }
 
-function Articles() {
-  const [data, setData] = React.useState(null);
 
+function Articles() {
+  const navigate = useNavigate();
+  function handleClick(text){
+  
+    navigate('/Article',{state:{text:text}});
+  
+  }
+//   const toArticle=(text)=>{
+// navigate('/Article',{state:{text:text}});
+//   }
+  const [data, setData] = React.useState(null);
+  var liste_album;
   var array;
+  let arrayDataItems;
   React.useEffect(() => {
     fetch("/articles")
       .then((res) => res.json())
@@ -25,20 +46,15 @@ function Articles() {
         
         setData(data)
         array = data.result
+         arrayDataItems = data.result.map(course => 
+          <li key={course.idArticle}>
+            <p>{course.title}</p>
+            <span>{course.preview }</span>
+          </li>
+        )
+      
       });
   }, []);
-
-  //var dataParse = JSON.parse(data)
-  var myJSON = JSON.stringify(data);
-  var result = JSON.parse(myJSON);
-  //var r = result["result"]
-  //"]
- //var e = data.result[0]
-  //var myJSONR = JSON.stringify(data.result)
-
-  //var rows = data["articles"]
-  console.log(result)
-  //console.log(e)
 
 
  var names = ['Jake', 'Jon', 'Thruster'];
@@ -52,11 +68,19 @@ function Articles() {
         <img src={logo} className="App-logo" alt="logo" />
         <div>{!data ? <p>"Loading..."</p> : <div dangerouslySetInnerHTML={{ __html: data.result[0].text }} div/> }</div>
       </header>
-      <ul>
-          {names.map(function(name, index){
-              return <li key={ index }>{name}</li>;
-            })}
-      </ul>
+
+      { !data ? <p>"Loading..."</p> :  data.result.map(course => 
+          <li key={course.idArticle}>
+            <p>{course.title}</p>
+            <a>{course.title}</a>
+
+            <button onClick={()=>handleClick(course.text)}>More</button>
+
+           
+
+
+          </li>
+        )}
     </div>
      
   )
