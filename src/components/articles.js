@@ -13,6 +13,7 @@ import { Routes } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 
+import ArticleCard from "./articleCard.js";
 
 import DOMPurify from "dompurify";
 
@@ -46,13 +47,13 @@ function Articles() {
         
         setData(data)
         array = data.result
-         arrayDataItems = data.result.map(course => 
-          <li key={course.idArticle}>
-            <p>{course.title}</p>
-            <span>{course.preview }</span>
-          </li>
+          arrayDataItems = data.result.map(course => 
+          <ArticleCard article={course}></ArticleCard>
+          // <li key={course.idArticle}>
+          //   <p>{course.title}</p>
+          //   <span>{course.preview }</span>
+          // </li>
         )
-      
       });
   }, []);
 
@@ -61,27 +62,31 @@ function Articles() {
 
 //  if (array === undefined) {
 //   return <>Still loading...</>;
+//<a onClick={()=>handleClick(course.text)} style={{cursor: 'pointer'}}> {course.title}</a>
 // }{
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>{!data ? <p>"Loading..."</p> : <div dangerouslySetInnerHTML={{ __html: data.result[0].text }} div/> }</div>
-      </header>
 
+<table style={{
+            width: "75%",
+            display:"block",
+            float:"left",
+            marginLeft:"50px",
+            marginTop:"75px"
+          }}>
+
+     
       { !data ? <p>"Loading..."</p> :  data.result.map(course => 
-          <li key={course.idArticle}>
-            <p>{course.title}</p>
-            <a>{course.title}</a>
-
-            <button onClick={()=>handleClick(course.text)}>More</button>
-
-           
-
-
-          </li>
+          <tr>
+          <td style={{}} onClick={()=>handleClick(course.text)}>
+            <ArticleCard  article={course}></ArticleCard>
+            </td>
+          </tr>
         )}
+    </table>
+
     </div>
+
      
   )
 //}

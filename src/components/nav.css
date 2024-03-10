@@ -1,12 +1,12 @@
 @import "fonts.css";
 .Nav {
-    background-color: #01303f;
+    background-color: #FFF8E7;
     overflow: hidden;
     }
     
     .Nav a {
     float: right;
-    color: #FFFFFF;
+    color: #01303f;
     text-align: center;
     padding: 14px 16px;
     text-decoration: #000000;
@@ -15,7 +15,6 @@
     font-weight: bold;
 
     font-size: 20px;
-    color: #FFFFFF;
     
     }
     
@@ -26,13 +25,17 @@
     
     }
     
+    #img {
+        float: left;
+        padding-top:4px;        
+    }
     .Nav a:hover {
-    background-color:#7883eb;
+    background-color:#FFF8E7;
     color: black;
     }
     
     .Nav a.active {
-    background-color: #01303f;
-    color: #FFFFFF;
+    background-color: #FFF8E7;
+    color: #01303f;
     }
     
